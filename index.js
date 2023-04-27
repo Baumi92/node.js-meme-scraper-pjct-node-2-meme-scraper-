@@ -1,23 +1,19 @@
-import axios = require('axios');
-
-// Your code using axios here
-
-const request = require('request');
-const cheerio = require('cheerio');
+import axios from 'axios';
+import cheerio from 'cheerio';
 
 const url = 'https://memegen-link-examples-upleveled.netlify.app/';
 
-request(url, (error, response, html) => {
-  if (!error && response.statusCode == 200) {
-    const $ = cheerio.load(html);
-    const memes = [];
+axios
+  .get(url)
+  .then((response) => {
+    const $ = cheerio.load(response.data);
+    const section = $('section').first();
+    const images = section.find('img').slice(0, 10);
 
-    $('div.meme > div.wrapper > a > img').each((i, el) => {
-      const title = $(el).attr('alt');
-      const image = $(el).attr('src');
-      memes.push({ title, image });
+    images.each((i, img) => {
+      console.log($(img).attr('src'));
     });
-
-    console.log(memes);
-  }
-});
+  })
+  .catch((error) => {
+    console.error(error);
+  });
