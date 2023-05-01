@@ -30,12 +30,9 @@ axios
 const randomNum = Math.floor(Math.random() * 10) + 1;
 
 // create the file path for the image
-
+// create a file who response with the image url
 const memes = `./memes/${randomNum}.jpg`;
 
 const imageUrl = `https://memegen.link/images/${memes}`;
 
 console.log(imageUrl);
-
-// create a file who response with the image url
-// destination path
